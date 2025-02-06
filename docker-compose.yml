@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: back-tkambio
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini # Opcional si tienes un php.ini personalizado
+      - ./storage:/var/www/html/storage # Asegura persistencia de almacenamiento
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    networks:
+      - app-network
+
+  composer:
+    image: composer:2
+    container_name: composer-tkambio
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["composer", "install"]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
