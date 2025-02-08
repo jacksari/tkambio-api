@@ -16,7 +16,8 @@ class ReportsService
     public function generateReportsUser(
         $startDate,
         $endDate,
-        $name
+        $name,
+        $user_id
     ) {
         $paths = $this->generateReportUrl(
             $startDate,
@@ -28,6 +29,7 @@ class ReportsService
             $paths['fileName'],
             $startDate,
             $endDate,
+            $user_id
         );
     }
 
@@ -35,15 +37,16 @@ class ReportsService
         $name,
         $path,
         $startDate,
-        $endDate
+        $endDate,
+        $user_id
     ) {
         DB::table('reports')->insert([
             'title' => $name,
             'report_link' => $path,
             'start_birthdate' => $startDate,
             'end_birthdate' => $endDate,
-            'created_by' => auth()->user()->id,
-            'updated_by' => auth()->user()->id,
+            'created_by' => $user_id,
+            'updated_by' => $user_id,
             'created_at' => $this->dateNow(),
             'updated_at' => $this->dateNow()
         ]);

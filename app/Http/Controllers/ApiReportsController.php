@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\ReportsService;
 use App\Http\Traits\CommonTrait;
+use App\Jobs\GenerateReportsUserJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,11 +23,22 @@ class ApiReportsController extends Controller
     public function generateReportUser(Request $request)
     {
 
-        $this->reportsService->generateReportsUser(
+        // $this->reportsService->generateReportsUser(
+        //     $request->start_birthdate,
+        //     $request->end_birthdate,
+        //     $request->name
+        // );
+
+        // return auth()->user()->id;
+
+        GenerateReportsUserJob::dispatch(
             $request->start_birthdate,
             $request->end_birthdate,
-            $request->name
+            $request->name,
+            auth()->user()->id
         );
+
+
 
         return response()->json([
             'message' => 'Reporte generado correctamente',
@@ -62,5 +74,4 @@ class ApiReportsController extends Controller
             200
         );
     }
-    
 }
