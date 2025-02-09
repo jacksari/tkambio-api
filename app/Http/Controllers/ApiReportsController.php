@@ -29,8 +29,6 @@ class ApiReportsController extends Controller
         //     $request->name
         // );
 
-        // return auth()->user()->id;
-
         GenerateReportsUserJob::dispatch(
             $request->start_birthdate,
             $request->end_birthdate,
@@ -51,7 +49,7 @@ class ApiReportsController extends Controller
 
         $data = $this->reportsService->getReports(
             1,
-            10
+            20
         );
 
         return $this->responseJson(

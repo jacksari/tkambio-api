@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        // $users = [];
 
         for ($i = 0; $i < 1000; $i++) {
             $user = [
@@ -25,7 +24,7 @@ class UserSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail(),
                 'birth_date' => $faker->dateTimeBetween('1980-01-01', '2010-12-31')->format('Y-m-d'),
                 'email_verified_at' => now(),
-                'password' => Hash::make('password'), // Puedes cambiar la contraseña por una más segura
+                'password' => Hash::make('password'),
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now(),

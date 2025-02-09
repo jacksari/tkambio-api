@@ -4,7 +4,6 @@ namespace App\Http\Traits;
 
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManagerStatic as Image;
-// use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -77,21 +76,6 @@ trait CommonTrait
         return $totalMinutos;
     }
 
-    public function getTypeMultimedia($extension)
-    {
-        $extension = strtolower($extension);
-        $type = 'other';
-        if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg'])) {
-            $type = 'image';
-        } elseif (in_array($extension, ['mp4', 'avi', 'mov', 'wmv', 'flv', '3gp'])) {
-            $type = 'video';
-        } elseif (in_array($extension, ['mp3', 'wav', 'wma', 'ogg', 'aac'])) {
-            $type = 'audio';
-        } elseif (in_array($extension, ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'])) {
-            $type = 'document';
-        }
-        return $type;
-    }
 
     public function deleteFileAws($url)
     {
@@ -118,17 +102,6 @@ trait CommonTrait
             return "0 MB";
         }
         return round($bytes / 1000, 2) . " MB";
-    }
-
-    public function generateCode($school_id, $table, $prefix = 'A00')
-    {
-        $correlative = DB::table($table)->where('school_id', $school_id)->orderBy('id', 'desc')->first();
-        $correlative = $correlative->correlative ?? 0;
-        $number = $this->zeroFill($correlative + 1, 8);
-        return [
-            'correlative' => $correlative + 1,
-            'code' => $prefix . $school_id . '-' . $number
-        ];
     }
 
     public function zeroFill($valor, $long = 0)

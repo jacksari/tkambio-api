@@ -35,7 +35,7 @@ class GenerateReportsUserJob implements ShouldQueue
      */
     public function handle(ReportsService $reportService)
     {
-        Log::info('Job iniciado con fechas: ' . $this->startDate . ' - ' . $this->endDate);
+        Log::info('Job iniciado');
     
         $reportService->generateReportsUser(
             $this->startDate,
