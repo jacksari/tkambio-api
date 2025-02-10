@@ -37,12 +37,10 @@ Route::group([
 
 
 Route::group([
-    'middleware' => 'api',
-    // 'prefix' => 'reports'
+    'middleware' => 'jwt',
 ], function ($router) {
     Route::post('/generate-report', [ApiReportsController::class, 'generateReportUser']);
     Route::get('/list-reports', [ApiReportsController::class, 'getReports']);
     Route::get('/get-report/{report_id}', [ApiReportsController::class, 'getReportById']);
-    //getReportById
 });
 
